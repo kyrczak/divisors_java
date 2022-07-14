@@ -1,24 +1,31 @@
 package pl.student;
 
+import com.sun.org.apache.xpath.internal.operations.Div;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Divisors {
-    private TreeSet<Integer> divisors;
+    private final TreeSet<Integer> divisors;
 
     public Divisors() {
         this.divisors = new TreeSet<>();
     }
 
+    public Divisors(int number) {
+        this.divisors = new TreeSet<>();
+        this.findDivisors(number);
+    }
     public void findDivisors(int number) {
-        this.divisors.clear();
-        int iterator = 1;
+        this.getDivisors().clear();
+        this.getDivisors().add(number);
+        int iterator = 2;
         while(iterator <= Math.sqrt(number)) {
             if(number % iterator == 0) {
-                this.divisors.add(number/iterator);
-                this.divisors.add(iterator);
+                this.getDivisors().add(number/iterator);
+                this.getDivisors().add(iterator);
             }
             iterator++;
         }
@@ -30,6 +37,20 @@ public class Divisors {
         }
     }
 
+    public boolean isADivisor(int number) {
+        return this.getDivisors().contains(number);
+    }
+
+    public boolean areDivisors(TreeSet<Integer> set) {
+        boolean areDivisors = true;
+        for(int number : set) {
+            areDivisors = this.getDivisors().contains(number);
+            if(!areDivisors) {
+                return areDivisors;
+            }
+        }
+        return areDivisors;
+    }
     public TreeSet<Integer> getDivisors() {
         return divisors;
     }
