@@ -1,4 +1,4 @@
-package pl.student;
+package korczak.patryk;
 
 import com.sun.org.apache.xpath.internal.operations.Div;
 
@@ -22,12 +22,23 @@ public class Divisors {
         this.getDivisors().clear();
         this.getDivisors().add(number);
         int iterator = 2;
-        while(iterator <= Math.sqrt(number)) {
+        while(iterator*iterator <= Math.abs(number)) {
             if(number % iterator == 0) {
                 this.getDivisors().add(number/iterator);
                 this.getDivisors().add(iterator);
             }
             iterator++;
+        }
+        if(number<0) {
+            iterator = -2;
+            this.getDivisors().add(Math.abs(number));
+            while(-(iterator*iterator)>= number) {
+                if(number % iterator == 0) {
+                    this.getDivisors().add(number/iterator);
+                    this.getDivisors().add(iterator);
+                }
+                iterator--;
+            }
         }
     }
 
